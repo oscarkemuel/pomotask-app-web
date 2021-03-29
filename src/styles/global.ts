@@ -52,5 +52,7 @@ export default createGlobalStyle`
     text-decoration: nome;
   }
 
-
+  p{
+    margin: 0;
+  }
 `

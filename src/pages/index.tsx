@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { Container, NumbersContainer } from '../styles/pages/Home'
 import OnTask from '../components/OnTask'
 import Cowntdown from '../components/Cowntdown'
+import ListTasks from '../components/ListTasks'
 
 const Home: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const Home: React.FC = () => {
           <OnTask title="Pontos pendentes" body="" points={0}/>
         </NumbersContainer>
         <Cowntdown />
+        <ListTasks />
       </Container>
     </>
   )

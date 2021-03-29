@@ -9,6 +9,8 @@ import dark from '../styles/themes/dark'
 
 import Header from '../components/Header';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [ theme, setTheme ] = useState(light)
 
