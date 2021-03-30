@@ -5,15 +5,11 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  margin: 2rem 0;
+  margin: 1rem 0 2rem 0;
   padding-bottom: 1rem;
   border-bottom: 1px solid #d7d8da;
 
   font-weight: 500;
-
-  span:first-child{
-    font-size: 1rem;
-  }
 
   span:last-child{
     color: var(--red);

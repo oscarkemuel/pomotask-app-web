@@ -6,7 +6,9 @@ const theme = {
     secundary: '#4F4F4F',
 
     background: '#4F4F4F',
-    text: '#F2F3F5'
+    cowntDownBack: '#666666',
+    text: '#F2F3F5',
+    textDate: '#F2F3F5',
   }
 }
 

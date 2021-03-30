@@ -6,7 +6,7 @@ export const CountdownContainer = styled.div`
   flex-direction: column;
   font-family: Rajdhani;
   font-weight: 600;
-  color: var(--title);
+  color: ${props => props.theme.colors.text};
 
   div{
     flex: 1;
@@ -15,7 +15,7 @@ export const CountdownContainer = styled.div`
     align-items: center;
     justify-content: space-evenly;
 
-    background: var(--white);
+    background: ${props => props.theme.colors.cowntDownBack};
     box-sizing: 0 0 60px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
     font-size: 8.5rem;
@@ -23,7 +23,8 @@ export const CountdownContainer = styled.div`
   }
 
   .points{
-    background: var(--background)
+    color: ${props => props.theme.colors.text};
+    background: ${props => props.theme.colors.background};
   }
 
   div > div span{
@@ -31,11 +32,11 @@ export const CountdownContainer = styled.div`
   }
 
   div > div span:first-child{
-    border-right: 1px solid #f0f1f3;
+    border-right: 1px solid ${props => props.theme.colors.background};
   }
 
   div > div span:last-child{
-    border-left: 1px solid #f0f1f3;
+    border-left: 1px solid ${props => props.theme.colors.background};
   }
 
   > span{

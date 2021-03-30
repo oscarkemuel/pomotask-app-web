@@ -8,11 +8,9 @@ export const Container = styled.div`
   width: 100%;
 
   padding: 1.5rem;
-  margin: 2rem 0;
-  border-bottom: 1px solid #d7d8da;
   border-radius: 0.5rem;
 
-  background-color: var(--white);
+  background-color: ${props => props.theme.colors.cowntDownBack};
 `
 
 export const List = styled.div`
@@ -29,16 +27,19 @@ export const List = styled.div`
     display: flex;
     width: 100%;
     font-weight: 600;
+    margin: 0.2rem 0;
 
     .itemNumber{
+      min-width: 4rem;
       display: flex;
       align-items: center;
-      background-color: var(--background);
-      /* padding: 1.5rem; */
+      justify-content: center;
+      background-color: ${props => props.theme.colors.background};
       border-radius: 0.5rem 0 0 0.5rem;
       height: 100%;
-      padding: 0 1.5rem;
+      /* padding: 0 1.5rem; */
       margin-right: 0.2rem;
+      border: solid 1px var(--text-highlight);
     }
 
     .itemInfo{
@@ -48,11 +49,13 @@ export const List = styled.div`
       flex-wrap: wrap;
 
       padding: 1rem;
-      background-color: var(--background);
+      background-color: ${props => props.theme.colors.background};
+      border: solid 1px var(--text-highlight);
       border-radius: 0 0.5rem 0.5rem 0;
       flex: 1;
 
       .name{
+        text-align: center;
         margin-right: 1rem;
       }
 
@@ -63,11 +66,14 @@ export const List = styled.div`
         flex-wrap: wrap;
 
         p{
-          margin-right: 1rem;
+          margin: 0.4rem 1rem 0 0;
+          @media (max-width: 349px) {
+            margin: 0.4rem 1rem 0 1rem;
+          }
         }
 
         p:nth-child(1){
-          color: var(--blue);
+          color: ${props => props.theme.colors.textDate};
         }
 
         p:nth-child(2){
@@ -80,7 +86,24 @@ export const List = styled.div`
         button{
           margin-left: 1rem;
         }
+
+        @media (max-width: 661px) {
+          margin-top: 1rem;
+
+          button{
+            margin: 1rem 0 0 0 ;
+            width: 100%;
+          }
+        }
+      }
+
+      @media (max-width: 661px) {
+        flex-direction: column;
       }
     }
   }
+`
+
+export const Title = styled.h1`
+  margin: 2rem 0 1rem 0;
 `

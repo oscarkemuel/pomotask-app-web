@@ -15,7 +15,6 @@ const Home: React.FC = () => {
 
       <Container>
         <NumbersContainer>
-          <OnTask title="Tarefa: " body="Inicie uma tarefa" points={0}/>
           <OnTask title="Pontos pendentes" body="" points={0}/>
         </NumbersContainer>
         <Cowntdown />
