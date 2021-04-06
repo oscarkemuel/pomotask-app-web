@@ -1,21 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Head from 'next/head'
 
-import RocketseatLogo from '../assets/rocketseat.svg'
-
-import { Container } from '../styles/pages/Home'
+import { Container, NumbersContainer, PendingTask } from '../styles/pages/Home'
+import Cowntdown from '../components/Cowntdown'
+import { TaskContext } from '../context/TaskContext'
+import ListTasks from '../components/ListTasks'
 
 const Home: React.FC = () => {
+  const { pendingTasks } = useContext(TaskContext)
+
   return (
-    <Container>
+    <>
       <Head>
-        <title>Homepage</title>
+        <title>PomoTask</title>
       </Head>
 
-      <RocketseatLogo />
-      <h1>ReactJS Structure</h1>
-      <p>A ReactJS + Next.js structure made by Rocketseat.</p>
-    </Container>
+      <Container>
+        <NumbersContainer>
+          <PendingTask>
+            <span>Pontos pendentes</span>
+            <span>{pendingTasks}</span>
+          </PendingTask>
+        </NumbersContainer>
+        <Cowntdown />
+        <ListTasks />
+      </Container>
+    </>
   )
 }
 
