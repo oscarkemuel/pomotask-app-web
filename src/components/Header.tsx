@@ -1,22 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext } from 'react'
 import Switch from 'react-switch'
 import { ThemeContext } from 'styled-components'
 
-import { Container } from '../styles/components/Header';
+import { Container } from '../styles/components/Header'
 
-import Logo from '../assets/logo.png';
+import Logo from '../assets/logo.png'
 
 interface Props {
-  toggleTheme(): void;
+  toggleTheme(): void
 }
 
 const Header: React.FC<Props> = ({ toggleTheme }) => {
   const { colors, title } = useContext(ThemeContext)
 
-  return(
+  return (
     <Container>
       <nav>
-        <img src={Logo} alt="PomoTask"/>
+        <img src={Logo} alt="PomoTask" />
 
         <Switch
           onChange={toggleTheme}
@@ -28,7 +28,7 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
           handleDiameter={20}
           onHandleColor={colors.text}
           offHandleColor={colors.text}
-          onColor='#27AE60'
+          onColor="#27AE60"
           offColor="#EB5757"
         />
       </nav>
@@ -36,4 +36,4 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
   )
 }
 
-export default Header;
+export default Header

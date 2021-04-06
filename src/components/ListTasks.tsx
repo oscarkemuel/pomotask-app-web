@@ -1,71 +1,79 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react'
 
-import { Container, List, Title } from '../styles/components/ListTasks';
-import { Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap'
+import { Container, List, Title } from '../styles/components/ListTasks'
 // import { FaPlus } from 'react-icons/fa'
-import { api } from '../services/api';
-import ModalAddUser from './modals/ModalAddTask';
+import { api } from '../services/api'
+import ModalAddUser from './modals/ModalAddTask'
+import { TaskContext } from '../context/TaskContext'
 
 interface tasksInterface {
-  title: string;
-  description: string;
-  points: number;
-  date: Date;
+  title: string
+  description: string
+  points: number
+  date: Date
+  id: string
 }
 
 const ListTasks: React.FC = () => {
-  const [tasks, setTasks] = useState<Array<tasksInterface>>([]);
+  const [tasks, setTasks] = useState<Array<tasksInterface>>([])
+  const { updateList, setPendingTasks } = useContext(TaskContext)
 
   useEffect(() => {
-    async function getTasks(){
+    async function getTasks(): Promise<void> {
       try {
-        const response = await api.get('/tasks');
-        setTasks(response.data);
+        const response = await api.get('/tasks')
+        setTasks(response.data)
+        setPendingTasks(response.data.length)
       } catch (error) {
-        setTasks([{
-          title: 'ERROR',
-          description: 'ERROR',
-          points: 0,
-          date: new Date('01/01/1000'),
-        }])
+        console.error(error)
       }
     }
 
-    getTasks();
-  }, [])
+    getTasks()
+  }, [updateList])
 
-  return(
+  return (
     <>
-    <Title>Tarefas</Title>
-    <Container>
-      {/* <Button variant="primary">Adicionar</Button> */}
-      <ModalAddUser />
-      <List>
-        {tasks.length > 0 ? tasks.map((task, id) => {
-          const date = new Date(task.date);
-          const dateFormated = date.toLocaleDateString();
+      <Title>Tarefas</Title>
+      <Container>
+        <ModalAddUser />
+        <List>
+          {tasks.length > 0 ? (
+            tasks.map((task, id) => {
+              const date = new Date(task.date)
+              const dateFormated = date.toLocaleDateString()
 
-          return(
-            <div className="listItem">
-              <div className="itemNumber">{id + 1}</div>
-              <div className="itemInfo">
-                <div className="name">
-                  <p>{task.title}</p>
+              return (
+                <div className="listItem" key={id.toString()}>
+                  <div className="itemNumber">{id + 1}</div>
+                  <div className="itemInfo">
+                    <div className="name">
+                      <button
+                        type="button"
+                        onClick={() => console.log(task.id)}
+                        className="linkModalEdit"
+                      >
+                        {task.title}
+                      </button>
+                    </div>
+                    <div className="infoChildren">
+                      <div>{dateFormated}</div>
+                      <div>{task.points}</div>
+                      <Button variant="primary">Iniciar</Button>
+                    </div>
+                  </div>
                 </div>
-                <div className="infoChildren">
-                  <p>{dateFormated}</p>
-                  <p>{task.points}</p>
-                  <Button variant="primary" >Iniciar</Button>
-                </div>
-              </div>
-            </div>
-          )
-        }) : <h3>Adicione uma nova tarefa</h3>}
-        {}
-      </List>
-    </Container>
+              )
+            })
+          ) : (
+            <h3>Adicione uma nova tarefa</h3>
+          )}
+          {}
+        </List>
+      </Container>
     </>
   )
 }
 
-export default ListTasks;
+export default ListTasks

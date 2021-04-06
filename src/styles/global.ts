@@ -55,4 +55,26 @@ export default createGlobalStyle`
   p{
     margin: 0;
   }
+
+  label{
+    font-size: 0.8rem;
+    color: ${props => props.theme.colors.labelForm};
+  }
+
+  .errorLabel{
+    margin: 0.2rem 0 0 0;
+    font-size: 0.8rem;
+    color: var(--red);
+  }
+
+  .buttonAddTask {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg{
+      font-size: 1rem;
+      margin-left: 5px;
+    }
+  }
 `

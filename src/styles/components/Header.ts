@@ -1,13 +1,13 @@
-import  styled  from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.header`
   background: ${props => props.theme.colors.primary};
 
-  img{
+  img {
     height: 3rem;
   }
 
-  nav{
+  nav {
     display: flex;
     align-items: center;
     justify-content: space-between;

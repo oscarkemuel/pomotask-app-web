@@ -1,0 +1,37 @@
+[
+  {
+    "point": 1,
+    "backgroundColor": "#26AF60",
+    "color": "#000"
+  },
+  {
+    "point": 2,
+    "backgroundColor": "#2D9CDB",
+    "color": "#000"
+  },
+  {
+    "point": 3,
+    "backgroundColor": "#F2C94C",
+    "color": "#000"
+  },
+  {
+    "point": 5,
+    "backgroundColor": "#F2994A",
+    "color": "#000"
+  },
+  {
+    "point": 8,
+    "backgroundColor": "#BB6BD9",
+    "color": "#000"
+  },
+  {
+    "point": 13,
+    "backgroundColor": "#EB5757",
+    "color": "#000"
+  },
+  {
+    "point": 21,
+    "backgroundColor": "#4F4F4F",
+    "color": "#FFF"
+  }
+]

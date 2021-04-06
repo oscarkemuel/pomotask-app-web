@@ -1,6 +1,9 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const ModalContent= styled.div`
+export const ModalContent = styled.div`
+  background: ${props => props.theme.colors.background};
+  color: ${props => props.theme.colors.text};
+  border: solid 1px var(--white);
   padding-left: 2rem;
   padding-right: 2rem;
 
@@ -12,84 +15,38 @@ export const ModalContent= styled.div`
     margin-bottom: 0.5rem !important;
   }
 
-  button svg {
-    font-size: 1rem;
-    margin-left: 5px;
-  }
-
   .modal-header {
-    border: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    background-color: var(--white);
+    background: ${props => props.theme.colors.background};
 
     .close {
       span {
         font-size: 37px;
+        color: ${props => props.theme.colors.text};
       }
     }
   }
 
   .modal-body {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    padding: 0 1rem 1rem 1rem;
-    padding-left: 0;
-    padding-right: 0;
+    background: ${props => props.theme.colors.background};
 
-    .row {
-      margin: 0;
-
-      form {
-      }
-
-      label {
-        color: var(--text-grey);
-      }
-
-      .order-md-1 {
-        width: 100%;
-        padding-right: 0.5rem;
-        padding-left: 0;
-
-        @media (max-width: 766px) {
-          padding: 0;
-        }
-      }
-
-      .order-md-2 {
-        width: 100%;
-        padding: 0;
-
-        button {
-          width: 100%;
-        }
-
-        label {
-          @media (max-width: 766px) {
-            display: none;
-          }
-        }
-      }
+    form {
+      width: 100%;
     }
 
-    .listComponent {
-      h1 {
-        margin: 2rem 0;
-        font-size: 21px;
-        color: var(--text-grey);
-      }
+    .form-group {
+      width: 100%;
     }
   }
 
   .modal-footer {
     justify-content: center;
-    border: 0;
-    padding-left: 0;
-    padding-right: 0;
+    background: ${props => props.theme.colors.background};
   }
-`;
+`
 
 export const FormContent = styled.div`
   display: flex;
@@ -126,4 +83,4 @@ export const FormContent = styled.div`
     font-size: 12px;
     text-shadow: 2px 2px 3px rgba(235, 109, 96, 0.2);
   }
-`;
+`

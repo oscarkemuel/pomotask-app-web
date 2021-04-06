@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Head from 'next/head'
 
-import { Container, NumbersContainer } from '../styles/pages/Home'
-import OnTask from '../components/OnTask'
+import { Container, NumbersContainer, PendingTask } from '../styles/pages/Home'
 import Cowntdown from '../components/Cowntdown'
+import { TaskContext } from '../context/TaskContext'
 import ListTasks from '../components/ListTasks'
 
 const Home: React.FC = () => {
+  const { pendingTasks } = useContext(TaskContext)
+
   return (
     <>
       <Head>
@@ -15,7 +17,10 @@ const Home: React.FC = () => {
 
       <Container>
         <NumbersContainer>
-          <OnTask title="Pontos pendentes" body="" points={0}/>
+          <PendingTask>
+            <span>Pontos pendentes</span>
+            <span>{pendingTasks}</span>
+          </PendingTask>
         </NumbersContainer>
         <Cowntdown />
         <ListTasks />

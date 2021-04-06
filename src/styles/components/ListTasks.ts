@@ -1,4 +1,4 @@
-import  styled  from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
@@ -23,19 +23,19 @@ export const List = styled.div`
   margin: 2rem 0;
   color: var(--black);
 
-  h3{
+  h3 {
     color: ${props => props.theme.colors.textError};
     padding-bottom: 0.2rem;
     border-bottom: solid 1px var(--red);
   }
 
-  .listItem{
+  .listItem {
     display: flex;
     width: 100%;
     font-weight: 600;
     margin: 0.2rem 0;
 
-    .itemNumber{
+    .itemNumber {
       min-width: 4rem;
       display: flex;
       align-items: center;
@@ -46,7 +46,7 @@ export const List = styled.div`
       border: solid 1px var(--text-highlight);
     }
 
-    .itemInfo{
+    .itemInfo {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -58,44 +58,55 @@ export const List = styled.div`
       border-radius: 0 0.5rem 0.5rem 0;
       flex: 1;
 
-      .name{
-        text-align: center;
-        margin-right: 1rem;
+      .name {
+        button {
+          color: ${props => props.theme.colors.text};
+          background-color: transparent;
+          :hover {
+            color: var(--red);
+            text-decoration: underline;
+          }
+        }
       }
 
-      .infoChildren{
+      .infoChildren {
         display: flex;
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
 
-        p{
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 1rem;
           margin: 0.4rem 1rem 0 0;
           @media (max-width: 349px) {
             margin: 0.4rem 1rem 0 1rem;
           }
         }
 
-        p:nth-child(1){
+        div:nth-child(1) {
           color: ${props => props.theme.colors.textDate};
         }
 
-        p:nth-child(2){
+        div:nth-child(2) {
           color: var(--white);
           background-color: var(--green);
-          padding: 0.1rem 2rem;
+          padding: 0.8rem 2rem;
           border-radius: 0.5rem;
+          text-align: center;
         }
 
-        button{
+        button {
           margin-left: 1rem;
         }
 
         @media (max-width: 661px) {
           margin-top: 1rem;
 
-          button{
-            margin: 1rem 0 0 0 ;
+          button {
+            margin: 1rem 0 0 0;
             width: 100%;
           }
         }
