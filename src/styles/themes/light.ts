@@ -9,6 +9,7 @@ const theme = {
     cowntDownBack: '#FFFFFF',
     text: '#2E384D',
     textDate: '#5965E0',
+    textError: '#E83F5B'
   }
 }
 

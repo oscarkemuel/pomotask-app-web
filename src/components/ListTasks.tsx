@@ -1,58 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Container, List, Title } from '../styles/components/ListTasks';
 import { Button } from 'react-bootstrap';
 // import { FaPlus } from 'react-icons/fa'
+import { api } from '../services/api';
+import ModalAddUser from './modals/ModalAddTask';
+
+interface tasksInterface {
+  title: string;
+  description: string;
+  points: number;
+  date: Date;
+}
 
 const ListTasks: React.FC = () => {
+  const [tasks, setTasks] = useState<Array<tasksInterface>>([]);
+
+  useEffect(() => {
+    async function getTasks(){
+      try {
+        const response = await api.get('/tasks');
+        setTasks(response.data);
+      } catch (error) {
+        setTasks([{
+          title: 'ERROR',
+          description: 'ERROR',
+          points: 0,
+          date: new Date('01/01/1000'),
+        }])
+      }
+    }
+
+    getTasks();
+  }, [])
 
   return(
     <>
     <Title>Tarefas</Title>
     <Container>
-      <Button variant="primary">Adicionar</Button>
+      {/* <Button variant="primary">Adicionar</Button> */}
+      <ModalAddUser />
       <List>
-        <div className="listItem">
-          <div className="itemNumber">1</div>
-          <div className="itemInfo">
-            <div className="name">
-              <p>Criar página de Complete SingUp</p>
-            </div>
-            <div className="infoChildren">
-              <p>13/03/2021</p>
-              <p>1</p>
-              <Button variant="primary" >Iniciar</Button>
-            </div>
-          </div>
-        </div>
+        {tasks.length > 0 ? tasks.map((task, id) => {
+          const date = new Date(task.date);
+          const dateFormated = date.toLocaleDateString();
 
-        <div className="listItem">
-          <div className="itemNumber">2</div>
-          <div className="itemInfo">
-            <div className="name">
-              <p>Criar página de Complete SingUp</p>
+          return(
+            <div className="listItem">
+              <div className="itemNumber">{id + 1}</div>
+              <div className="itemInfo">
+                <div className="name">
+                  <p>{task.title}</p>
+                </div>
+                <div className="infoChildren">
+                  <p>{dateFormated}</p>
+                  <p>{task.points}</p>
+                  <Button variant="primary" >Iniciar</Button>
+                </div>
+              </div>
             </div>
-            <div className="infoChildren">
-              <p>13/03/2021</p>
-              <p>2</p>
-              <Button variant="primary" >Iniciar</Button>
-            </div>
-          </div>
-        </div>
-
-        <div className="listItem">
-          <div className="itemNumber">3</div>
-          <div className="itemInfo">
-            <div className="name">
-              <p>Criar página de Complete SingUp</p>
-            </div>
-            <div className="infoChildren">
-              <p>13/03/2021</p>
-              <p>3</p>
-              <Button variant="primary" >Iniciar</Button>
-            </div>
-          </div>
-        </div>
+          )
+        }) : <h3>Adicione uma nova tarefa</h3>}
+        {}
       </List>
     </Container>
     </>

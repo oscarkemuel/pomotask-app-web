@@ -15,13 +15,19 @@ export const Container = styled.div`
 
 export const List = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
 
   width: 100%;
 
   margin: 2rem 0;
   color: var(--black);
+
+  h3{
+    color: ${props => props.theme.colors.textError};
+    padding-bottom: 0.2rem;
+    border-bottom: solid 1px var(--red);
+  }
 
   .listItem{
     display: flex;
@@ -36,8 +42,6 @@ export const List = styled.div`
       justify-content: center;
       background-color: ${props => props.theme.colors.background};
       border-radius: 0.5rem 0 0 0.5rem;
-      height: 100%;
-      /* padding: 0 1.5rem; */
       margin-right: 0.2rem;
       border: solid 1px var(--text-highlight);
     }
