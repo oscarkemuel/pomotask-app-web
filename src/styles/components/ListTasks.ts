@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -10,8 +10,8 @@ export const Container = styled.div`
   padding: 1.5rem;
   border-radius: 0.5rem;
 
-  background-color: ${props => props.theme.colors.cowntDownBack};
-`
+  background-color: ${(props) => props.theme.colors.cowntDownBack};
+`;
 
 export const List = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ export const List = styled.div`
   color: var(--black);
 
   h3 {
-    color: ${props => props.theme.colors.textError};
+    color: ${(props) => props.theme.colors.textError};
     padding-bottom: 0.2rem;
     border-bottom: solid 1px var(--red);
   }
@@ -40,7 +40,7 @@ export const List = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: ${props => props.theme.colors.background};
+      background-color: ${(props) => props.theme.colors.background};
       border-radius: 0.5rem 0 0 0.5rem;
       margin-right: 0.2rem;
       border: solid 1px var(--text-highlight);
@@ -53,14 +53,14 @@ export const List = styled.div`
       flex-wrap: wrap;
 
       padding: 1rem;
-      background-color: ${props => props.theme.colors.background};
+      background-color: ${(props) => props.theme.colors.background};
       border: solid 1px var(--text-highlight);
       border-radius: 0 0.5rem 0.5rem 0;
       flex: 1;
 
       .name {
         button {
-          color: ${props => props.theme.colors.text};
+          color: ${(props) => props.theme.colors.text};
           background-color: transparent;
           :hover {
             color: var(--red);
@@ -87,7 +87,7 @@ export const List = styled.div`
         }
 
         div:nth-child(1) {
-          color: ${props => props.theme.colors.textDate};
+          color: ${(props) => props.theme.colors.textDate};
         }
 
         div:nth-child(2) {
@@ -117,8 +117,8 @@ export const List = styled.div`
       }
     }
   }
-`
+`;
 
 export const Title = styled.h1`
   margin: 2rem 0 1rem 0;
-`
+`;

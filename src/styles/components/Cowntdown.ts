@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const CountdownContainer = styled.div`
   display: flex;
@@ -6,7 +6,7 @@ export const CountdownContainer = styled.div`
   flex-direction: column;
   font-family: Rajdhani;
   font-weight: 600;
-  color: ${props => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.text};
 
   div {
     flex: 1;
@@ -15,7 +15,7 @@ export const CountdownContainer = styled.div`
     align-items: center;
     justify-content: space-evenly;
 
-    background: ${props => props.theme.colors.cowntDownBack};
+    background: ${(props) => props.theme.colors.cowntDownBack};
     box-sizing: 0 0 60px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
     font-size: 8.5rem;
@@ -23,8 +23,8 @@ export const CountdownContainer = styled.div`
   }
 
   .points {
-    color: ${props => props.theme.colors.text};
-    background: ${props => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.text};
+    background: ${(props) => props.theme.colors.background};
   }
 
   div > div span {
@@ -32,18 +32,18 @@ export const CountdownContainer = styled.div`
   }
 
   div > div span:first-child {
-    border-right: 1px solid ${props => props.theme.colors.background};
+    border-right: 1px solid ${(props) => props.theme.colors.background};
   }
 
   div > div span:last-child {
-    border-left: 1px solid ${props => props.theme.colors.background};
+    border-left: 1px solid ${(props) => props.theme.colors.background};
   }
 
   > span {
     font-size: 6.25rem;
     margin: 0 0.25rem;
   }
-`
+`;
 
 export const CountdownButton = styled.button`
   width: 100%;
@@ -91,4 +91,4 @@ export const CountdownButton = styled.button`
     cursor: not-allowed;
     border-bottom-color: var(--green);
   }
-`
+`;

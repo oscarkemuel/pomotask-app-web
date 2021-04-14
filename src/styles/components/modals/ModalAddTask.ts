@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ModalContent = styled.div`
-  background: ${props => props.theme.colors.background};
-  color: ${props => props.theme.colors.text};
+  background: ${(props) => props.theme.colors.background};
+  color: ${(props) => props.theme.colors.text};
   border: solid 1px var(--white);
   padding-left: 2rem;
   padding-right: 2rem;
@@ -16,12 +16,12 @@ export const ModalContent = styled.div`
   }
 
   .modal-header {
-    background: ${props => props.theme.colors.background};
+    background: ${(props) => props.theme.colors.background};
 
     .close {
       span {
         font-size: 37px;
-        color: ${props => props.theme.colors.text};
+        color: ${(props) => props.theme.colors.text};
       }
     }
   }
@@ -31,7 +31,7 @@ export const ModalContent = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: ${props => props.theme.colors.background};
+    background: ${(props) => props.theme.colors.background};
 
     form {
       width: 100%;
@@ -44,9 +44,9 @@ export const ModalContent = styled.div`
 
   .modal-footer {
     justify-content: center;
-    background: ${props => props.theme.colors.background};
+    background: ${(props) => props.theme.colors.background};
   }
-`
+`;
 
 export const FormContent = styled.div`
   display: flex;
@@ -83,4 +83,4 @@ export const FormContent = styled.div`
     font-size: 12px;
     text-shadow: 2px 2px 3px rgba(235, 109, 96, 0.2);
   }
-`
+`;

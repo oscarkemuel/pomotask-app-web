@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react';
 
-import { ThemeContext } from 'styled-components'
+import { ThemeContext } from 'styled-components';
 import {
   CountdownContainer,
   CountdownButton
-} from '../styles/components/Cowntdown'
+} from '../styles/components/Cowntdown';
 
 const Cowntdown: React.FC = () => {
-  const { colors, title } = useContext(ThemeContext)
+  const { colors, title } = useContext(ThemeContext);
 
   return (
     <CountdownContainer>
@@ -24,7 +24,7 @@ const Cowntdown: React.FC = () => {
       </div>
       <CountdownButton disabled>Inicie uma tarefa</CountdownButton>
     </CountdownContainer>
-  )
-}
+  );
+};
 
-export default Cowntdown
+export default Cowntdown;

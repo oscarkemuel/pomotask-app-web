@@ -12,6 +12,6 @@ const theme = {
     textError: '#F2F3F5',
     labelForm: '#F2F3F5'
   }
-}
+};
 
-export default theme
+export default theme;

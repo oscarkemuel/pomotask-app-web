@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.header`
-  background: ${props => props.theme.colors.primary};
+  background: ${(props) => props.theme.colors.primary};
 
   img {
     height: 3rem;
@@ -15,4 +15,4 @@ export const Container = styled.header`
     padding: 1.5rem 2rem;
     margin: 0 auto;
   }
-`
+`;

@@ -1,46 +1,46 @@
-import React, { useContext, useState } from 'react'
-import { Button, Modal, Form } from 'react-bootstrap'
-import { FaPlus } from 'react-icons/fa'
-import { useFormik } from 'formik'
-import * as yup from 'yup'
-import { toast } from 'react-toastify'
-import { ModalContent } from '../../styles/components/modals/ModalAddTask'
+import React, { useContext, useState } from 'react';
+import { Button, Modal, Form } from 'react-bootstrap';
+import { FaPlus } from 'react-icons/fa';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { toast } from 'react-toastify';
+import { ModalContent } from '../../styles/components/modals/ModalAddTask';
 
-import pointsData from '../../data/points.json'
+import pointsData from '../../data/points.json';
 
-import { api } from '../../services/api'
+import { api } from '../../services/api';
 
-import { TaskContext } from '../../context/TaskContext'
+import { TaskContext } from '../../context/TaskContext';
 
 interface dataInterface {
-  title: string
-  date: string
-  points: number
-  description?: string
+  title: string;
+  date: string;
+  points: number;
+  description?: string;
 }
 
 const ModalAddUser: React.FC = () => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
-  const handleClose = (): void => setShow(false)
-  const handleShow = (): void => setShow(true)
-  const { updateList, setUpdateList } = useContext(TaskContext)
+  const handleClose = (): void => setShow(false);
+  const handleShow = (): void => setShow(true);
+  const { updateList, setUpdateList } = useContext(TaskContext);
 
   async function isCreated(data: dataInterface): Promise<void> {
     try {
-      await api.post(`/tasks`, data)
+      await api.post(`/tasks`, data);
 
       toast.success('Tarefa adicionada', {
         draggable: true,
         className: 'success-toast'
-      })
-      handleClose()
-      setUpdateList(!updateList)
+      });
+      handleClose();
+      setUpdateList(!updateList);
     } catch (error) {
       toast.error('Problema em adicionar tarefa', {
         draggable: true,
         className: 'error-toast'
-      })
+      });
     }
   }
 
@@ -57,21 +57,20 @@ const ModalAddUser: React.FC = () => {
       points: yup.number(),
       description: yup.string()
     }),
-    onSubmit: values => {
-      const data = values
-      isCreated(data)
+    onSubmit: (values) => {
+      const data = values;
+      isCreated(data);
     }
-  })
+  });
 
   return (
     <>
       <Button
         variant="primary"
         onClick={() => {
-          handleShow()
+          handleShow();
         }}
-        className="buttonAddTask"
-      >
+        className="buttonAddTask">
         Adicionar
         <FaPlus />
       </Button>
@@ -127,8 +126,7 @@ const ModalAddUser: React.FC = () => {
                     className="mb-2"
                     onChange={formik.handleChange}
                     value={formik.values.points}
-                    isInvalid={!!formik.errors.points}
-                  >
+                    isInvalid={!!formik.errors.points}>
                     {pointsData.map((points, id) => {
                       return (
                         <option
@@ -137,11 +135,10 @@ const ModalAddUser: React.FC = () => {
                             color: points.color
                           }}
                           className="options"
-                          key={id.toString()}
-                        >
+                          key={id.toString()}>
                           {points.point}
                         </option>
-                      )
+                      );
                     })}
                   </Form.Control>
                 </Form.Group>
@@ -154,8 +151,7 @@ const ModalAddUser: React.FC = () => {
                 <Button
                   variant="primary"
                   type="submit"
-                  className="buttonAddTask"
-                >
+                  className="buttonAddTask">
                   Adicionar tarefa
                   <FaPlus />
                 </Button>
@@ -165,7 +161,7 @@ const ModalAddUser: React.FC = () => {
         </ModalContent>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default ModalAddUser
+export default ModalAddUser;

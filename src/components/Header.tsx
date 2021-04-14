@@ -1,17 +1,17 @@
-import React, { useContext } from 'react'
-import Switch from 'react-switch'
-import { ThemeContext } from 'styled-components'
+import React, { useContext } from 'react';
+import Switch from 'react-switch';
+import { ThemeContext } from 'styled-components';
 
-import { Container } from '../styles/components/Header'
+import { Container } from '../styles/components/Header';
 
-import Logo from '../assets/logo.png'
+import Logo from '../assets/logo.png';
 
 interface Props {
-  toggleTheme(): void
+  toggleTheme(): void;
 }
 
 const Header: React.FC<Props> = ({ toggleTheme }) => {
-  const { colors, title } = useContext(ThemeContext)
+  const { colors, title } = useContext(ThemeContext);
 
   return (
     <Container>
@@ -33,7 +33,7 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
         />
       </nav>
     </Container>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

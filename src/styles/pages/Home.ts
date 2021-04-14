@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   max-width: 992px;
@@ -8,11 +8,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export const NumbersContainer = styled.div`
   min-width: 60%;
-`
+`;
 
 export const PendingTask = styled.div`
   display: flex;
@@ -29,4 +29,4 @@ export const PendingTask = styled.div`
     color: var(--red);
     font-size: 1.25rem;
   }
-`
+`;
