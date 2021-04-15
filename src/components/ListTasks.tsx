@@ -6,6 +6,7 @@ import { Container, List, Title } from '../styles/components/ListTasks';
 import { api } from '../services/api';
 import ModalAddUser from './modals/ModalAddTask';
 import { TaskContext } from '../context/TaskContext';
+import ModalEditUser from './modals/ModalEditTask';
 
 interface tasksInterface {
   title: string;
@@ -49,12 +50,12 @@ const ListTasks: React.FC = () => {
                   <div className="itemNumber">{id + 1}</div>
                   <div className="itemInfo">
                     <div className="name">
-                      <button
-                        type="button"
-                        onClick={() => console.log(task.id)}
-                        className="linkModalEdit">
-                        {task.title}
-                      </button>
+                      <ModalEditUser
+                        name={task.title}
+                        idTask={task.id}
+                        dateValue={task.date}
+                        pointsValue={task.points}
+                      />
                     </div>
                     <div className="infoChildren">
                       <div>{dateFormated}</div>

@@ -14,41 +14,65 @@ import { TaskContext } from '../../context/TaskContext';
 
 interface dataInterface {
   title: string;
-  date: string;
+  date: Date;
   points: number;
   description?: string;
 }
 
-const ModalAddUser: React.FC = () => {
+interface Props {
+  name: string;
+  idTask: string;
+  dateValue: Date;
+  pointsValue: number;
+}
+
+const ModalEditUser: React.FC<Props> = ({
+  name,
+  idTask,
+  dateValue,
+  pointsValue
+}: Props) => {
   const [show, setShow] = useState(false);
 
   const handleClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);
   const { updateList, setUpdateList } = useContext(TaskContext);
 
-  async function isCreated(data: dataInterface): Promise<void> {
-    try {
-      await api.post(`/tasks`, data);
+  function formatDate(date: Date): string {
+    const d = new Date(date);
+    let month = `${d.getMonth() + 1}`;
+    let day = `${d.getDate()}`;
+    const year = d.getFullYear();
 
-      toast.success('Tarefa adicionada', {
-        draggable: true,
-        className: 'success-toast'
+    if (month.length < 2) month = `0${month}`;
+    if (day.length < 2) day = `0${day}`;
+
+    return [year, month, day].join('-');
+  }
+
+  const dateFormated = formatDate(new Date(dateValue));
+
+  async function deleteTask(): Promise<void> {
+    try {
+      await api.delete(`/tasks/${idTask}`);
+
+      toast.error('Tarefa removida', {
+        draggable: true
       });
       handleClose();
       setUpdateList(!updateList);
     } catch (error) {
-      toast.error('Problema em adicionar tarefa', {
-        draggable: true,
-        className: 'error-toast'
+      toast.error('Problema em remover tarefa', {
+        draggable: true
       });
     }
   }
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      date: '',
-      points: 1,
+      title: name || '',
+      date: dateFormated || '',
+      points: pointsValue || 1,
       description: ''
     },
     validationSchema: yup.object({
@@ -59,27 +83,19 @@ const ModalAddUser: React.FC = () => {
     }),
     onSubmit: (values) => {
       const data = values;
-      isCreated(data);
-      formik.setValues({
-        title: '',
-        date: '',
-        points: 1,
-        description: ''
-      });
+      console.log(data);
     }
   });
 
   return (
     <>
-      <Button
-        variant="primary"
+      <button
         onClick={() => {
           handleShow();
         }}
-        className="buttonAddTask">
-        Adicionar
-        <FaPlus />
-      </Button>
+        type="button">
+        {name}
+      </button>
       <Modal show={show} onHide={handleClose}>
         <ModalContent>
           <Modal.Header closeButton>
@@ -149,25 +165,20 @@ const ModalAddUser: React.FC = () => {
                   </Form.Control>
                 </Form.Group>
               </Form.Row>
-
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Voltar
-                </Button>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="buttonAddTask">
-                  Adicionar tarefa
-                  <FaPlus />
-                </Button>
-              </Modal.Footer>
             </Form>
           </Modal.Body>
+          <Modal.Footer>
+            <Button variant="success" onClick={handleClose}>
+              Salvar
+            </Button>
+            <Button variant="danger" onClick={() => deleteTask()}>
+              Remover
+            </Button>
+          </Modal.Footer>
         </ModalContent>
       </Modal>
     </>
   );
 };
 
-export default ModalAddUser;
+export default ModalEditUser;
