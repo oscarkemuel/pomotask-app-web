@@ -58,10 +58,10 @@ const ModalEditUser: React.FC<Props> = ({
     try {
       await api.delete(`/tasks/${idTask}`);
 
+      setUpdateList(!updateList);
       toast.error('Tarefa removida', {
         draggable: true
       });
-      setUpdateList(!updateList);
       handleClose();
     } catch (error) {
       toast.error('Problema em remover tarefa', {
@@ -78,10 +78,10 @@ const ModalEditUser: React.FC<Props> = ({
 
       await api.put(`/tasks/${idTask}`, dataTemp);
 
+      setUpdateList(!updateList);
       toast.success('Tarefa atualizada', {
         draggable: true
       });
-      setUpdateList(!updateList);
       handleClose();
     } catch (error) {
       toast.error('Problema em atualizar tarefa', {
