@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-import { FaPlus } from 'react-icons/fa';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import { parseISO } from 'date-fns';
 import { ModalContent } from '../../styles/components/modals/ModalAddTask';
 
 import pointsData from '../../data/points.json';
@@ -14,7 +14,7 @@ import { TaskContext } from '../../context/TaskContext';
 
 interface dataInterface {
   title: string;
-  date: Date;
+  date: string;
   points: number;
   description?: string;
 }
@@ -24,13 +24,15 @@ interface Props {
   idTask: string;
   dateValue: Date;
   pointsValue: number;
+  descriptionValue: string;
 }
 
 const ModalEditUser: React.FC<Props> = ({
   name,
   idTask,
   dateValue,
-  pointsValue
+  pointsValue,
+  descriptionValue
 }: Props) => {
   const [show, setShow] = useState(false);
 
@@ -59,10 +61,30 @@ const ModalEditUser: React.FC<Props> = ({
       toast.error('Tarefa removida', {
         draggable: true
       });
-      handleClose();
       setUpdateList(!updateList);
+      handleClose();
     } catch (error) {
       toast.error('Problema em remover tarefa', {
+        draggable: true
+      });
+    }
+  }
+
+  async function editTask(data: dataInterface): Promise<void> {
+    try {
+      const dataTemp = data;
+      const parseDate = parseISO(data.date);
+      dataTemp.date = parseDate.toString();
+
+      await api.put(`/tasks/${idTask}`, dataTemp);
+
+      toast.success('Tarefa atualizada', {
+        draggable: true
+      });
+      setUpdateList(!updateList);
+      handleClose();
+    } catch (error) {
+      toast.error('Problema em atualizar tarefa', {
         draggable: true
       });
     }
@@ -73,7 +95,7 @@ const ModalEditUser: React.FC<Props> = ({
       title: name || '',
       date: dateFormated || '',
       points: pointsValue || 1,
-      description: ''
+      description: descriptionValue || ''
     },
     validationSchema: yup.object({
       title: yup.string().required('Campo necessário'),
@@ -83,9 +105,20 @@ const ModalEditUser: React.FC<Props> = ({
     }),
     onSubmit: (values) => {
       const data = values;
-      console.log(data);
+      editTask(data);
     }
   });
+
+  function colorSelect(pointValue: number): Array<string> {
+    const teste = Number(pointValue);
+    const point = pointsData.filter((points) => points.point === teste);
+
+    if (point[0]) {
+      return [point[0].backgroundColor, point[0].color];
+    }
+
+    return ['#fff', '#000'];
+  }
 
   return (
     <>
@@ -99,7 +132,7 @@ const ModalEditUser: React.FC<Props> = ({
       <Modal show={show} onHide={handleClose}>
         <ModalContent>
           <Modal.Header closeButton>
-            <Modal.Title>Informações</Modal.Title>
+            <Modal.Title>Alterar ou Excluir</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={formik.handleSubmit}>
@@ -148,7 +181,13 @@ const ModalEditUser: React.FC<Props> = ({
                     className="mb-2"
                     onChange={formik.handleChange}
                     value={formik.values.points}
-                    isInvalid={!!formik.errors.points}>
+                    isInvalid={!!formik.errors.points}
+                    style={{
+                      backgroundColor: `${
+                        colorSelect(formik.values.points)[0]
+                      }`,
+                      color: `${colorSelect(formik.values.points)[1]}`
+                    }}>
                     {pointsData.map((points, id) => {
                       return (
                         <option
@@ -165,16 +204,37 @@ const ModalEditUser: React.FC<Props> = ({
                   </Form.Control>
                 </Form.Group>
               </Form.Row>
+
+              <Form.Row>
+                <Form.Group controlId="formDescription">
+                  <Form.Label>Descrição</Form.Label>
+                  <Form.Control
+                    name="description"
+                    as="textarea"
+                    className="mb-2"
+                    placeholder="Descrição"
+                    onChange={formik.handleChange}
+                    value={formik.values.description}
+                    isInvalid={!!formik.errors.description}
+                  />
+                  {formik.errors.description && formik.touched.description ? (
+                    <span className="errorLabel">
+                      {formik.errors.description}
+                    </span>
+                  ) : null}
+                </Form.Group>
+              </Form.Row>
+
+              <Modal.Footer>
+                <Button variant="success" type="submit" onClick={handleClose}>
+                  Salvar
+                </Button>
+                <Button variant="danger" onClick={() => deleteTask()}>
+                  Remover
+                </Button>
+              </Modal.Footer>
             </Form>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="success" onClick={handleClose}>
-              Salvar
-            </Button>
-            <Button variant="danger" onClick={() => deleteTask()}>
-              Remover
-            </Button>
-          </Modal.Footer>
         </ModalContent>
       </Modal>
     </>

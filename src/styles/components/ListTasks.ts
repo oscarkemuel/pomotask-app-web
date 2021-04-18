@@ -91,8 +91,8 @@ export const List = styled.div`
         }
 
         div:nth-child(2) {
+          min-width: 82px;
           color: var(--white);
-          background-color: var(--green);
           padding: 0.8rem 2rem;
           border-radius: 0.5rem;
           text-align: center;

@@ -18,7 +18,7 @@ const Home: React.FC = () => {
       <Container>
         <NumbersContainer>
           <PendingTask>
-            <span>Pontos pendentes</span>
+            <span>Tarefas pendentes</span>
             <span>{pendingTasks}</span>
           </PendingTask>
         </NumbersContainer>

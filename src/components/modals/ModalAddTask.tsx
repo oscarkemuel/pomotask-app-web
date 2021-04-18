@@ -69,6 +69,17 @@ const ModalAddUser: React.FC = () => {
     }
   });
 
+  function colorSelect(pointValue: number): Array<string> {
+    const teste = Number(pointValue);
+    const point = pointsData.filter((points) => points.point === teste);
+
+    if (point[0]) {
+      return [point[0].backgroundColor, point[0].color];
+    }
+
+    return ['#fff', '#000'];
+  }
+
   return (
     <>
       <Button
@@ -89,7 +100,7 @@ const ModalAddUser: React.FC = () => {
             <Form onSubmit={formik.handleSubmit}>
               <Form.Row>
                 <Form.Group controlId="formName">
-                  <Form.Label>Nome da tarefa</Form.Label>
+                  <Form.Label>Nome da tarefa*</Form.Label>
                   <Form.Control
                     name="title"
                     type="text"
@@ -107,7 +118,7 @@ const ModalAddUser: React.FC = () => {
 
               <Form.Row>
                 <Form.Group controlId="formDate">
-                  <Form.Label>Data de entrega</Form.Label>
+                  <Form.Label>Data de entrega*</Form.Label>
                   <Form.Control
                     name="date"
                     type="date"
@@ -132,7 +143,13 @@ const ModalAddUser: React.FC = () => {
                     className="mb-2"
                     onChange={formik.handleChange}
                     value={formik.values.points}
-                    isInvalid={!!formik.errors.points}>
+                    isInvalid={!!formik.errors.points}
+                    style={{
+                      backgroundColor: `${
+                        colorSelect(formik.values.points)[0]
+                      }`,
+                      color: `${colorSelect(formik.values.points)[1]}`
+                    }}>
                     {pointsData.map((points, id) => {
                       return (
                         <option
@@ -147,6 +164,26 @@ const ModalAddUser: React.FC = () => {
                       );
                     })}
                   </Form.Control>
+                </Form.Group>
+              </Form.Row>
+
+              <Form.Row>
+                <Form.Group controlId="formDescription">
+                  <Form.Label>Descrição</Form.Label>
+                  <Form.Control
+                    name="description"
+                    as="textarea"
+                    className="mb-2"
+                    placeholder="Descrição"
+                    onChange={formik.handleChange}
+                    value={formik.values.description}
+                    isInvalid={!!formik.errors.description}
+                  />
+                  {formik.errors.description && formik.touched.description ? (
+                    <span className="errorLabel">
+                      {formik.errors.description}
+                    </span>
+                  ) : null}
                 </Form.Group>
               </Form.Row>
 
