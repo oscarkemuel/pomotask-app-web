@@ -54,7 +54,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
 
-          <link rel="icon" href="../assets/ico.ico" />
+          <link rel="shortcut icon" href="favicon.ico" type="image/ico" />
         </Head>
         <body>
           <Main />

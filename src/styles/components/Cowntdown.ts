@@ -27,6 +27,10 @@ export const CountdownContainer = styled.div`
     background: ${(props) => props.theme.colors.background};
   }
 
+  .number {
+    min-width: 69px;
+  }
+
   div > div span {
     flex: 1;
   }
@@ -49,7 +53,7 @@ export const CountdownButton = styled.button`
   width: 100%;
   height: 5rem;
 
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   display: flex;
   align-items: center;

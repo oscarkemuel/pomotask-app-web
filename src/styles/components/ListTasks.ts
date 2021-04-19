@@ -59,13 +59,20 @@ export const List = styled.div`
       flex: 1;
 
       .name {
+        text-align: center;
+        width: 130px;
         button {
+          width: 100%;
           color: ${(props) => props.theme.colors.text};
           background-color: transparent;
           :hover {
             color: var(--red);
             text-decoration: underline;
           }
+        }
+
+        @media (max-width: 768px) {
+          margin-bottom: 1rem;
         }
       }
 
@@ -91,8 +98,8 @@ export const List = styled.div`
         }
 
         div:nth-child(2) {
+          min-width: 82px;
           color: var(--white);
-          background-color: var(--green);
           padding: 0.8rem 2rem;
           border-radius: 0.5rem;
           text-align: center;
@@ -102,7 +109,7 @@ export const List = styled.div`
           margin-left: 1rem;
         }
 
-        @media (max-width: 661px) {
+        @media (max-width: 768px) {
           margin-top: 1rem;
 
           button {
@@ -112,13 +119,21 @@ export const List = styled.div`
         }
       }
 
-      @media (max-width: 661px) {
+      @media (max-width: 768px) {
         flex-direction: column;
       }
     }
   }
 `;
 
-export const Title = styled.h1`
-  margin: 2rem 0 1rem 0;
+export const Title = styled.div`
+  margin: 1.5rem 0 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    color: var(--red);
+  }
 `;

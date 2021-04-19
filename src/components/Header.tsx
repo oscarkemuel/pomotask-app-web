@@ -4,8 +4,6 @@ import { ThemeContext } from 'styled-components';
 
 import { Container } from '../styles/components/Header';
 
-import Logo from '../assets/logo.png';
-
 interface Props {
   toggleTheme(): void;
 }
@@ -16,7 +14,7 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
   return (
     <Container>
       <nav>
-        <img src={Logo} alt="PomoTask" />
+        <img src="images/logo.png" alt="PomoTask" />
 
         <Switch
           onChange={toggleTheme}

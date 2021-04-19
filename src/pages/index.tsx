@@ -6,6 +6,8 @@ import Cowntdown from '../components/Cowntdown';
 import { TaskContext } from '../context/TaskContext';
 import ListTasks from '../components/ListTasks';
 
+import { CountdownProvider } from '../context/TaskCountdown';
+
 const Home: React.FC = () => {
   const { pendingTasks } = useContext(TaskContext);
 
@@ -16,14 +18,16 @@ const Home: React.FC = () => {
       </Head>
 
       <Container>
-        <NumbersContainer>
-          <PendingTask>
-            <span>Pontos pendentes</span>
-            <span>{pendingTasks}</span>
-          </PendingTask>
-        </NumbersContainer>
-        <Cowntdown />
-        <ListTasks />
+        <CountdownProvider>
+          <NumbersContainer>
+            <PendingTask>
+              <span>Tarefas pendentes</span>
+              <span>{pendingTasks}</span>
+            </PendingTask>
+          </NumbersContainer>
+          <Cowntdown />
+          <ListTasks />
+        </CountdownProvider>
       </Container>
     </>
   );

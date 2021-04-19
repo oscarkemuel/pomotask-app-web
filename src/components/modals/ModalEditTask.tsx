@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-import { FaPlus } from 'react-icons/fa';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import { parseISO } from 'date-fns';
 import { ModalContent } from '../../styles/components/modals/ModalAddTask';
 
 import pointsData from '../../data/points.json';
@@ -19,37 +19,83 @@ interface dataInterface {
   description?: string;
 }
 
-const ModalAddUser: React.FC = () => {
+interface Props {
+  name: string;
+  idTask: string;
+  dateValue: Date;
+  pointsValue: number;
+  descriptionValue: string;
+}
+
+const ModalEditUser: React.FC<Props> = ({
+  name,
+  idTask,
+  dateValue,
+  pointsValue,
+  descriptionValue
+}: Props) => {
   const [show, setShow] = useState(false);
 
   const handleClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);
   const { updateList, setUpdateList } = useContext(TaskContext);
 
-  async function isCreated(data: dataInterface): Promise<void> {
-    try {
-      await api.post(`/tasks`, data);
+  function formatDate(date: Date): string {
+    const d = new Date(date);
+    let month = `${d.getMonth() + 1}`;
+    let day = `${d.getDate()}`;
+    const year = d.getFullYear();
 
-      toast.success('Tarefa adicionada', {
-        draggable: true,
-        className: 'success-toast'
+    if (month.length < 2) month = `0${month}`;
+    if (day.length < 2) day = `0${day}`;
+
+    return [year, month, day].join('-');
+  }
+
+  const dateFormated = formatDate(new Date(dateValue));
+
+  async function deleteTask(): Promise<void> {
+    try {
+      await api.delete(`/tasks/${idTask}`);
+
+      setUpdateList(!updateList);
+      toast.error('Tarefa removida', {
+        draggable: true
       });
       handleClose();
-      setUpdateList(!updateList);
     } catch (error) {
-      toast.error('Problema em adicionar tarefa', {
-        draggable: true,
-        className: 'error-toast'
+      toast.error('Problema em remover tarefa', {
+        draggable: true
+      });
+    }
+  }
+
+  async function editTask(data: dataInterface): Promise<void> {
+    try {
+      const dataTemp = data;
+      const parseDate = parseISO(data.date);
+      dataTemp.date = parseDate.toString();
+
+      await api.put(`/tasks/${idTask}`, dataTemp);
+
+      setUpdateList(!updateList);
+      toast.success('Tarefa atualizada', {
+        draggable: true
+      });
+      handleClose();
+    } catch (error) {
+      toast.error('Problema em atualizar tarefa', {
+        draggable: true
       });
     }
   }
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      date: '',
-      points: 1,
-      description: ''
+      title: name || '',
+      date: dateFormated || '',
+      points: pointsValue || 1,
+      description: descriptionValue || ''
     },
     validationSchema: yup.object({
       title: yup.string().required('Campo necessário'),
@@ -59,13 +105,7 @@ const ModalAddUser: React.FC = () => {
     }),
     onSubmit: (values) => {
       const data = values;
-      isCreated(data);
-      formik.setValues({
-        title: '',
-        date: '',
-        points: 1,
-        description: ''
-      });
+      editTask(data);
     }
   });
 
@@ -82,25 +122,23 @@ const ModalAddUser: React.FC = () => {
 
   return (
     <>
-      <Button
-        variant="primary"
+      <button
         onClick={() => {
           handleShow();
         }}
-        className="buttonAddTask">
-        Adicionar
-        <FaPlus />
-      </Button>
+        type="button">
+        {name}
+      </button>
       <Modal show={show} onHide={handleClose}>
         <ModalContent>
           <Modal.Header closeButton>
-            <Modal.Title>Informações</Modal.Title>
+            <Modal.Title>Alterar ou Excluir</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={formik.handleSubmit}>
               <Form.Row>
                 <Form.Group controlId="formName">
-                  <Form.Label>Nome da tarefa*</Form.Label>
+                  <Form.Label>Nome da tarefa</Form.Label>
                   <Form.Control
                     name="title"
                     type="text"
@@ -119,7 +157,7 @@ const ModalAddUser: React.FC = () => {
 
               <Form.Row>
                 <Form.Group controlId="formDate">
-                  <Form.Label>Data de entrega*</Form.Label>
+                  <Form.Label>Data de entrega</Form.Label>
                   <Form.Control
                     name="date"
                     type="date"
@@ -189,15 +227,11 @@ const ModalAddUser: React.FC = () => {
               </Form.Row>
 
               <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Voltar
+                <Button variant="success" type="submit" onClick={handleClose}>
+                  Salvar
                 </Button>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="buttonAddTask">
-                  Adicionar tarefa
-                  <FaPlus />
+                <Button variant="danger" onClick={() => deleteTask()}>
+                  Remover
                 </Button>
               </Modal.Footer>
             </Form>
@@ -208,4 +242,4 @@ const ModalAddUser: React.FC = () => {
   );
 };
 
-export default ModalAddUser;
+export default ModalEditUser;
