@@ -142,6 +142,7 @@ const ModalEditUser: React.FC<Props> = ({
                   <Form.Control
                     name="title"
                     type="text"
+                    maxLength={20}
                     className="mb-2"
                     placeholder="Digite o nome da tarefa"
                     onChange={formik.handleChange}

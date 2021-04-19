@@ -2,6 +2,7 @@ import React, {
   createContext,
   Dispatch,
   SetStateAction,
+  useContext,
   useEffect,
   useState
 } from 'react';
@@ -15,6 +16,7 @@ interface TaskContextData {
   pendingTasks: number;
   setPendingTasks: Dispatch<SetStateAction<number>>;
   tasks: Array<tasksInterface>;
+  completeTask: (idTask: string) => void;
 }
 
 interface tasksInterface {
@@ -31,6 +33,23 @@ export const TaskContextProvider: React.FC = ({ children }) => {
   const [updateList, setUpdateList] = useState<boolean>(false);
   const [pendingTasks, setPendingTasks] = useState<number>(0);
   const [tasks, setTasks] = useState<Array<tasksInterface>>([]);
+
+  async function completeTask(idTask: string): Promise<void> {
+    if (idTask.length > 1) {
+      try {
+        await api.delete(`/tasks/${idTask}`);
+
+        setUpdateList(!updateList);
+        toast.success('Tarefa finalziada', {
+          draggable: true
+        });
+      } catch (error) {
+        toast.error('Problema em finalizar tarefa', {
+          draggable: true
+        });
+      }
+    }
+  }
 
   useEffect(() => {
     async function getTasks(): Promise<void> {
@@ -55,7 +74,8 @@ export const TaskContextProvider: React.FC = ({ children }) => {
         setUpdateList,
         pendingTasks,
         setPendingTasks,
-        tasks
+        tasks,
+        completeTask
       }}>
       {children}
     </TaskContext.Provider>

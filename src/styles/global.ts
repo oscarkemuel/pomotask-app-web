@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   * {
@@ -35,16 +35,12 @@ export default createGlobalStyle`
   }
 
   body {
-    background: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.text};
+    background: ${(props) => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.text};
   }
 
   body, input, textarea, button{
     font: 400 1rem "Inter", sans-serif;
-  }
-
-  button{
-    cursor: pointer;
   }
 
   a{
@@ -58,7 +54,7 @@ export default createGlobalStyle`
 
   label{
     font-size: 0.8rem;
-    color: ${props => props.theme.colors.labelForm};
+    color: ${(props) => props.theme.colors.labelForm};
   }
 
   .errorLabel{
@@ -77,4 +73,4 @@ export default createGlobalStyle`
       margin-left: 5px;
     }
   }
-`
+`;

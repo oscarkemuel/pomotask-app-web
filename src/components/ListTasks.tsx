@@ -1,19 +1,33 @@
 import React, { useContext } from 'react';
 
-import { Button } from 'react-bootstrap';
+import { Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { FaCheck } from 'react-icons/fa';
 import { Container, List, Title } from '../styles/components/ListTasks';
 import ModalAddUser from './modals/ModalAddTask';
 import { TaskContext } from '../context/TaskContext';
 import ModalEditUser from './modals/ModalEditTask';
 
 import pointsData from '../data/points.json';
+import { CountdownContext } from '../context/TaskCountdown';
 
 const ListTasks: React.FC = () => {
   const { tasks } = useContext(TaskContext);
+  const {
+    isActive,
+    startCountdown,
+    taskActive,
+    setIdTaskActive,
+    completeTask
+  } = useContext(CountdownContext);
 
   return (
     <>
-      <Title>Tarefas</Title>
+      <Title>
+        <h1>Tarefas</h1>
+        <p>
+          {taskActive ? `Tarefa ativa: ${taskActive}` : 'Nenhuma tarefa ativa'}
+        </p>
+      </Title>
       <Container>
         <ModalAddUser />
         <List>
@@ -39,6 +53,20 @@ const ListTasks: React.FC = () => {
                         descriptionValue={task.description}
                       />
                     </div>
+
+                    <OverlayTrigger
+                      overlay={
+                        <Tooltip id="tooltip-disabled">
+                          {task.description || 'Sem drescrição'}
+                        </Tooltip>
+                      }>
+                      <span className="d-inline-block">
+                        <Button disabled style={{ pointerEvents: 'none' }}>
+                          Descrição
+                        </Button>
+                      </span>
+                    </OverlayTrigger>
+
                     <div className="infoChildren">
                       <div>{dateFormated}</div>
                       <div
@@ -47,7 +75,38 @@ const ListTasks: React.FC = () => {
                         }}>
                         {task.points}
                       </div>
-                      <Button variant="primary">Iniciar</Button>
+
+                      {!isActive ? (
+                        <>
+                          <Button
+                            variant="primary"
+                            onClick={() => {
+                              startCountdown(task.title);
+                              setIdTaskActive(task.id);
+                            }}>
+                            Iniciar
+                          </Button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              completeTask(task.id);
+                            }}
+                            style={{ background: 'transparent' }}>
+                            <FaCheck style={{ color: 'green' }} />
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <Button variant="secondary">Iniciar</Button>
+                          <button
+                            type="button"
+                            style={{ background: 'transparent' }}>
+                            <FaCheck style={{ color: '#6c757d' }} />
+                          </button>
+                        </>
+                      )}
+
+                      {/* <Button variant="success">Terminar</Button> */}
                     </div>
                   </div>
                 </div>
