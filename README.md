@@ -14,6 +14,7 @@ Para instalar o PomoTask Web, siga estas etapas:
 3. Entre na pasta rodando: `cd pomotask-app-web`;
 4. Rode `yarn` ou `npm install` para instalar as dependências do projeto;
 5. Rode `yarn dev` ou `npm dev` para iniciar o servidor de desenvolvimento.
+6. Para então funcionar com as tarefas, esteja com o servidor ativo. https://github.com/oscarkemuel/pomotask-app-backend
 
 ## :computer: Dependências
 
