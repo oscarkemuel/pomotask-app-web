@@ -3,6 +3,8 @@
 > Interface para gerenciar tarefas, juntamento com método pomodoro.
 > Layout: https://www.figma.com/file/Q9Q0AoM4wvpMIsNuMTidTg/PomoTask?node-id=0%3A1
 
+![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+
 ## 🚀 Instalando POMOTASK WEB
 
 Para instalar o PomoTask Web, siga estas etapas:
