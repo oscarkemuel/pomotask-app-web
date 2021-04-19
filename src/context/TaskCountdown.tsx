@@ -107,6 +107,18 @@ export const CountdownProvider: React.FC = ({
   }
 
   useEffect(() => {
+    function getBodyMessage(): string {
+      if (quantity % 8 === 0 && quantity !== 0) {
+        return `Descanço de 20min - Tarefa: ${taskActive || 'Nenhuma'}`;
+      }
+
+      if (quantity % 2 === 0) {
+        return `Descanço de 5min - Tarefa: ${taskActive || 'Nenhuma'}`;
+      }
+
+      return `Bora trabalhar! - Tarefa: ${taskActive || 'Nenhuma'}`;
+    }
+
     if (isActive && time > 0) {
       countdownTimeout = setTimeout(() => {
         setTime(time - 1);
@@ -118,8 +130,9 @@ export const CountdownProvider: React.FC = ({
 
       new Audio('/notification.mp3').play();
 
+      const bodyMessage = getBodyMessage();
       if (Notification.permission === 'granted') {
-        (() => new Notification("Let's go!", {}))();
+        (() => new Notification(bodyMessage, {}))();
       }
 
       const quantityTemp = quantity + 1;
