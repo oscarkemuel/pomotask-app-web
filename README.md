@@ -29,6 +29,7 @@ Para instalar o PomoTask Web, siga estas etapas:
 * styled-components
 * tslint
 * yup
+* typescript
 
 ## 📫 Contribuindo para POMOTASK WEB
 Para contribuir com PomoTask Web, siga estas etapas:
