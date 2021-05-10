@@ -2,7 +2,6 @@ import React, {
   createContext,
   Dispatch,
   SetStateAction,
-  useContext,
   useEffect,
   useState
 } from 'react';
@@ -17,6 +16,8 @@ interface TaskContextData {
   setPendingTasks: Dispatch<SetStateAction<number>>;
   tasks: Array<tasksInterface>;
   completeTask: (idTask: string) => void;
+  progress: number;
+  setProgress: Dispatch<SetStateAction<number>>;
 }
 
 interface tasksInterface {
@@ -33,6 +34,7 @@ export const TaskContextProvider: React.FC = ({ children }) => {
   const [updateList, setUpdateList] = useState<boolean>(false);
   const [pendingTasks, setPendingTasks] = useState<number>(0);
   const [tasks, setTasks] = useState<Array<tasksInterface>>([]);
+  const [progress, setProgress] = useState(100);
 
   async function completeTask(idTask: string): Promise<void> {
     if (idTask.length > 1) {
@@ -75,7 +77,9 @@ export const TaskContextProvider: React.FC = ({ children }) => {
         pendingTasks,
         setPendingTasks,
         tasks,
-        completeTask
+        completeTask,
+        progress,
+        setProgress
       }}>
       {children}
     </TaskContext.Provider>

@@ -22,19 +22,13 @@ const Cowntdown: React.FC = () => {
     completeTask,
     setIdTaskActive,
     setQuantity,
-    setTime
+    setTime,
+    setCurrent,
+    resetProgress
   } = useContext(CountdownContext);
 
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
-
-  // function buttonPrimary(): JSX.Element {
-  //   if (isActive) {
-  //     return <CountdownButton disabled>Iniciar</CountdownButton>;
-  //   }else if()
-
-  //   return null;
-  // }
 
   return (
     <CountdownContainer>
@@ -81,6 +75,8 @@ const Cowntdown: React.FC = () => {
             setIdTaskActive('');
             setQuantity(0);
             setTime(25 * 60);
+            setCurrent(25 * 60);
+            resetProgress();
           }}
           style={{ backgroundColor: 'var(--red)' }}>
           Cancelar
@@ -97,6 +93,8 @@ const Cowntdown: React.FC = () => {
             setIdTaskActive('');
             setQuantity(0);
             setTime(25 * 60);
+            setCurrent(25 * 60);
+            resetProgress();
           }}
           style={{ backgroundColor: 'var(--red)' }}>
           Fazer depois
@@ -110,6 +108,8 @@ const Cowntdown: React.FC = () => {
             completeTask(idTaskActive);
             setQuantity(0);
             setTime(25 * 60);
+            setCurrent(25 * 60);
+            resetProgress();
           }}
           style={{ backgroundColor: 'var(--green)' }}>
           Finalizar

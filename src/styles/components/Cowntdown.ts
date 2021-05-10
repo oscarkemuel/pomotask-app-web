@@ -28,7 +28,7 @@ export const CountdownContainer = styled.div`
   }
 
   .number {
-    min-width: 69px;
+    width: 71.5px;
   }
 
   div > div span {

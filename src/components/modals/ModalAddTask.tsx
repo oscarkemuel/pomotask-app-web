@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
 import { useFormik } from 'formik';
@@ -60,14 +60,17 @@ const ModalAddUser: React.FC = () => {
     onSubmit: (values) => {
       const data = values;
       isCreated(data);
-      formik.setValues({
-        title: '',
-        date: '',
-        points: 1,
-        description: ''
-      });
     }
   });
+
+  useEffect(() => {
+    formik.setValues({
+      title: '',
+      date: '',
+      points: 1,
+      description: ''
+    });
+  }, [updateList]);
 
   function colorSelect(pointValue: number): Array<string> {
     const teste = Number(pointValue);

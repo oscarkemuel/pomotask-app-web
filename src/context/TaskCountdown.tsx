@@ -24,6 +24,8 @@ interface CountdownContextData {
   completeTask: (idTask: string) => void;
   setTime: React.Dispatch<React.SetStateAction<number>>;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
+  setCurrent: React.Dispatch<React.SetStateAction<number>>;
+  resetProgress: () => void;
 }
 
 interface CountdownProviderProps {
@@ -37,9 +39,10 @@ let countdownTimeout: NodeJS.Timeout;
 export const CountdownProvider: React.FC = ({
   children
 }: CountdownProviderProps) => {
-  const { updateList, setUpdateList } = useContext(TaskContext);
+  const { updateList, setUpdateList, setProgress } = useContext(TaskContext);
 
   const [time, setTime] = useState(25 * 60);
+  const [current, setCurrent] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
@@ -55,6 +58,10 @@ export const CountdownProvider: React.FC = ({
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
 
+  function resetProgress(): void {
+    setProgress(100);
+  }
+
   function startCountdown(task: string): void {
     setHasFinished(false);
     setTaskActive(task);
@@ -67,13 +74,19 @@ export const CountdownProvider: React.FC = ({
 
     if (quantity % 8 === 0 && quantity !== 0) {
       setTime(20 * 60);
+      setCurrent(20 * 60);
+      resetProgress();
       return;
     }
 
     if (quantity % 2 === 0) {
       setTime(5 * 60);
+      setCurrent(5 * 60);
+      resetProgress();
     } else {
       setTime(25 * 60);
+      setCurrent(25 * 60);
+      resetProgress();
     }
   }
 
@@ -85,6 +98,8 @@ export const CountdownProvider: React.FC = ({
         setUpdateList(!updateList);
         setTaskActive('');
         setTime(25 * 60);
+        setCurrent(25 * 60);
+        resetProgress();
         setHasFinished(false);
         setIdTaskActive('');
         toast.success('Tarefa finalziada', {
@@ -122,6 +137,9 @@ export const CountdownProvider: React.FC = ({
     if (isActive && time > 0) {
       countdownTimeout = setTimeout(() => {
         setTime(time - 1);
+        setProgress(Math.round((time - 1) * 100) / current);
+        // console.log(Math.round((time - 1) * 100) / current);
+        // console.log(progress);
       }, 1000);
     } else if (isActive && time === 0) {
       setHasFinished(true);
@@ -156,7 +174,9 @@ export const CountdownProvider: React.FC = ({
         setHasFinished,
         completeTask,
         setTime,
-        setQuantity
+        setQuantity,
+        setCurrent,
+        resetProgress
       }}>
       {children}
     </CountdownContext.Provider>
