@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Head>
-        <title>PomoTask</title>
+        <title>PomoTask - Home</title>
       </Head>
 
       <Container>
