@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Button, Tooltip, OverlayTrigger, Alert } from 'react-bootstrap';
 import { FaCheck } from 'react-icons/fa';
 import { Container, List, Title } from '../styles/components/ListTasks';
 import ModalAddUser from './modals/ModalAddTask';
@@ -29,6 +29,13 @@ const ListTasks: React.FC = () => {
         </p>
       </Title>
       <Container>
+        <Alert variant="danger">
+          <Alert.Heading>Atenção!</Alert.Heading>
+          <p>
+            As tarefas são salvas em seu navegador. Portanto, se você trocar de
+            navegador, as tarefas serão perdidas.
+          </p>
+        </Alert>
         <ModalAddUser />
         <List>
           {tasks.length > 0 ? (
@@ -51,6 +58,7 @@ const ListTasks: React.FC = () => {
                         dateValue={task.date}
                         pointsValue={task.points}
                         descriptionValue={task.description}
+                        position={id}
                       />
                     </div>
 
@@ -90,6 +98,7 @@ const ListTasks: React.FC = () => {
                             type="button"
                             onClick={() => {
                               completeTask(task.id);
+                              // console.log(task.id);
                             }}
                             style={{ background: 'transparent' }}>
                             <FaCheck style={{ color: 'green' }} />

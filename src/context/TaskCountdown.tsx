@@ -6,7 +6,6 @@ import React, {
   useState
 } from 'react';
 import { toast } from 'react-toastify';
-import { api } from '../services/api';
 import { TaskContext } from './TaskContext';
 
 interface CountdownContextData {
@@ -92,24 +91,22 @@ export const CountdownProvider: React.FC = ({
 
   async function completeTask(idTask: string): Promise<void> {
     if (idTask.length > 1) {
-      try {
-        await api.delete(`/tasks/${idTask}`);
+      setUpdateList(!updateList);
+      setTaskActive('');
+      setTime(25 * 60);
+      setCurrent(25 * 60);
+      resetProgress();
+      setHasFinished(false);
+      setIdTaskActive('');
 
-        setUpdateList(!updateList);
-        setTaskActive('');
-        setTime(25 * 60);
-        setCurrent(25 * 60);
-        resetProgress();
-        setHasFinished(false);
-        setIdTaskActive('');
-        toast.success('Tarefa finalziada', {
-          draggable: true
-        });
-      } catch (error) {
-        toast.error('Problema em remover tarefa', {
-          draggable: true
-        });
-      }
+      const dataTemporary = JSON.parse(localStorage.getItem('tasks'));
+      const arrayTemporary = dataTemporary.filter((task) => task.id !== idTask);
+      const tasksTemporary = JSON.stringify(arrayTemporary);
+      localStorage.setItem('tasks', tasksTemporary);
+
+      toast.success('Tarefa finalziada', {
+        draggable: true
+      });
     } else {
       setTaskActive('');
       resetCountdown();

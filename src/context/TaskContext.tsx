@@ -7,8 +7,6 @@ import React, {
 } from 'react';
 import { toast } from 'react-toastify';
 
-import { api } from '../services/api';
-
 interface TaskContextData {
   updateList: boolean;
   setUpdateList: Dispatch<SetStateAction<boolean>>;
@@ -38,31 +36,39 @@ export const TaskContextProvider: React.FC = ({ children }) => {
 
   async function completeTask(idTask: string): Promise<void> {
     if (idTask.length > 1) {
-      try {
-        await api.delete(`/tasks/${idTask}`);
+      const dataTemporary = JSON.parse(localStorage.getItem('tasks'));
+      const arrayTemporary = dataTemporary.filter((task) => task.id !== idTask);
+      const tasksTemporary = JSON.stringify(arrayTemporary);
+      localStorage.setItem('tasks', tasksTemporary);
 
-        setUpdateList(!updateList);
-        toast.success('Tarefa finalziada', {
-          draggable: true
-        });
-      } catch (error) {
-        toast.error('Problema em finalizar tarefa', {
-          draggable: true
-        });
-      }
+      setUpdateList(!updateList);
+
+      toast.success('Tarefa finalziada', {
+        draggable: true
+      });
     }
   }
 
   useEffect(() => {
     async function getTasks(): Promise<void> {
-      try {
-        const response = await api.get('/tasks');
+      let data = JSON.parse(localStorage.getItem('tasks'));
+      if (data) {
+        data.sort(function (a, b): any {
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+      }
+      if (data === null) {
+        const tasksTemporary = JSON.stringify([]);
+        localStorage.setItem('tasks', tasksTemporary);
+        data = JSON.parse(localStorage.getItem('tasks'));
 
         setTasks([]);
-        setTasks(response.data);
-        setPendingTasks(response.data.length);
-      } catch (error) {
-        toast.error('Problema ao carregar tarefas');
+        setPendingTasks(0);
+      } else {
+        // console.log(data);
+        setTasks([]);
+        setTasks(data);
+        setPendingTasks(data.length);
       }
     }
 

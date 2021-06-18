@@ -11,6 +11,10 @@ export const Container = styled.div`
   border-radius: 0.5rem;
 
   background-color: ${(props) => props.theme.colors.cowntDownBack};
+
+  .alert {
+    width: 100%;
+  }
 `;
 
 export const List = styled.div`
@@ -43,7 +47,7 @@ export const List = styled.div`
       background-color: ${(props) => props.theme.colors.background};
       border-radius: 0.5rem 0 0 0.5rem;
       margin-right: 0.2rem;
-      border: solid 1px var(--text-highlight);
+      border: solid 1px #c2cbe2;
     }
 
     .itemInfo {
@@ -54,7 +58,7 @@ export const List = styled.div`
 
       padding: 1rem;
       background-color: ${(props) => props.theme.colors.background};
-      border: solid 1px var(--text-highlight);
+      border: solid 1px #c2cbe2;
       border-radius: 0 0.5rem 0.5rem 0;
       flex: 1;
 

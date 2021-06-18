@@ -4,11 +4,10 @@ import { FaPlus } from 'react-icons/fa';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 import { ModalContent } from '../../styles/components/modals/ModalAddTask';
 
 import pointsData from '../../data/points.json';
-
-import { api } from '../../services/api';
 
 import { TaskContext } from '../../context/TaskContext';
 
@@ -27,21 +26,27 @@ const ModalAddUser: React.FC = () => {
   const { updateList, setUpdateList } = useContext(TaskContext);
 
   async function isCreated(data: dataInterface): Promise<void> {
-    try {
-      await api.post(`/tasks`, data);
-
-      toast.success('Tarefa adicionada', {
-        draggable: true,
-        className: 'success-toast'
-      });
-      handleClose();
-      setUpdateList(!updateList);
-    } catch (error) {
-      toast.error('Problema em adicionar tarefa', {
-        draggable: true,
-        className: 'error-toast'
-      });
+    const dataTemporary = JSON.parse(localStorage.getItem('tasks'));
+    const newData = {
+      title: data.title,
+      description: data.description,
+      points: data.points,
+      date: data.date,
+      id: `${uuidv4()}`
+    };
+    const arrayTemporary: dataInterface[] = [...dataTemporary, newData];
+    for (let i = 0; i < arrayTemporary.length; i += 1) {
+      arrayTemporary[i].points = Number(arrayTemporary[i].points);
     }
+    const tasksTemporary = JSON.stringify(arrayTemporary);
+    localStorage.setItem('tasks', tasksTemporary);
+    // console.log(arrayTemporary);
+    handleClose();
+    setUpdateList(!updateList);
+
+    toast.success('Tarefa adicionada', {
+      draggable: true
+    });
   }
 
   const formik = useFormik({

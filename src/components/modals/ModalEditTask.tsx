@@ -3,12 +3,9 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
-import { parseISO } from 'date-fns';
 import { ModalContent } from '../../styles/components/modals/ModalAddTask';
 
 import pointsData from '../../data/points.json';
-
-import { api } from '../../services/api';
 
 import { TaskContext } from '../../context/TaskContext';
 
@@ -25,6 +22,7 @@ interface Props {
   dateValue: Date;
   pointsValue: number;
   descriptionValue: string;
+  position: number;
 }
 
 const ModalEditUser: React.FC<Props> = ({
@@ -32,7 +30,8 @@ const ModalEditUser: React.FC<Props> = ({
   idTask,
   dateValue,
   pointsValue,
-  descriptionValue
+  descriptionValue,
+  position
 }: Props) => {
   const [show, setShow] = useState(false);
 
@@ -55,39 +54,36 @@ const ModalEditUser: React.FC<Props> = ({
   const dateFormated = formatDate(new Date(dateValue));
 
   async function deleteTask(): Promise<void> {
-    try {
-      await api.delete(`/tasks/${idTask}`);
+    const dataTemporary = JSON.parse(localStorage.getItem('tasks'));
+    const arrayTemporary = dataTemporary.filter((task) => task.id !== idTask);
+    const tasksTemporary = JSON.stringify(arrayTemporary);
+    localStorage.setItem('tasks', tasksTemporary);
 
-      setUpdateList(!updateList);
-      toast.error('Tarefa removida', {
-        draggable: true
-      });
-      handleClose();
-    } catch (error) {
-      toast.error('Problema em remover tarefa', {
-        draggable: true
-      });
-    }
+    setUpdateList(!updateList);
+    toast.error('Tarefa removida', {
+      draggable: true
+    });
   }
 
   async function editTask(data: dataInterface): Promise<void> {
-    try {
-      const dataTemp = data;
-      const parseDate = parseISO(data.date);
-      dataTemp.date = parseDate.toString();
+    const dataTemporary = JSON.parse(localStorage.getItem('tasks'));
+    const tasksTemporary = [...dataTemporary];
+    const newObject = {
+      title: data.title,
+      description: data.description,
+      points: Number(data.points),
+      date: data.date,
+      id: idTask
+    };
+    tasksTemporary[position] = newObject;
 
-      await api.put(`/tasks/${idTask}`, dataTemp);
+    localStorage.setItem('tasks', JSON.stringify(tasksTemporary));
 
-      setUpdateList(!updateList);
-      toast.success('Tarefa atualizada', {
-        draggable: true
-      });
-      handleClose();
-    } catch (error) {
-      toast.error('Problema em atualizar tarefa', {
-        draggable: true
-      });
-    }
+    setUpdateList(!updateList);
+
+    toast.success('Tarefa atualizada', {
+      draggable: true
+    });
   }
 
   const formik = useFormik({
