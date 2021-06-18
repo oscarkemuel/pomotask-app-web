@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Card } from 'react-bootstrap';
 import { Container } from '../styles/pages/Home';
 import { Content } from '../styles/pages/Pomodoro';
+import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
   return (
@@ -57,6 +58,7 @@ const Home: React.FC = () => {
           </div>
         </Content>
       </Container>
+      <Footer />
     </>
   );
 };

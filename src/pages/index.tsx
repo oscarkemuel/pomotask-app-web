@@ -8,6 +8,7 @@ import { TaskContext } from '../context/TaskContext';
 import ListTasks from '../components/ListTasks';
 
 import { CountdownProvider } from '../context/TaskCountdown';
+import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
   const { pendingTasks, progress } = useContext(TaskContext);
@@ -38,6 +39,8 @@ const Home: React.FC = () => {
           <ListTasks />
         </CountdownProvider>
       </Container>
+
+      <Footer />
     </>
   );
 };
