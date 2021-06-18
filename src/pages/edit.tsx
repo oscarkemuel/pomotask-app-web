@@ -26,7 +26,12 @@ const Edit: React.FC = () => {
   const { id } = router.query;
   const position = Number(id);
 
-  const tasks = JSON.parse(localStorage.getItem('tasks'));
+  let tasks = [];
+  if (process.browser) {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  // const tasks = JSON.parse(localStorage.getItem('tasks'));
   const taskObject: dataInterface = tasks[position];
   const { updateList, setUpdateList } = useContext(TaskContext);
 
