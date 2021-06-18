@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 
 import { Button, Tooltip, OverlayTrigger, Alert } from 'react-bootstrap';
 import { FaCheck } from 'react-icons/fa';
+import Link from 'next/link';
 import { Container, List, Title } from '../styles/components/ListTasks';
 import ModalAddUser from './modals/ModalAddTask';
 import { TaskContext } from '../context/TaskContext';
-import ModalEditUser from './modals/ModalEditTask';
 
 import pointsData from '../data/points.json';
 import { CountdownContext } from '../context/TaskCountdown';
@@ -52,14 +52,7 @@ const ListTasks: React.FC = () => {
                   <div className="itemNumber">{id + 1}</div>
                   <div className="itemInfo">
                     <div className="name">
-                      <ModalEditUser
-                        name={task.title}
-                        idTask={task.id}
-                        dateValue={task.date}
-                        pointsValue={task.points}
-                        descriptionValue={task.description}
-                        position={id}
-                      />
+                      <Link href={`edit?id=${id}`}>{task.title}</Link>
                     </div>
 
                     <OverlayTrigger

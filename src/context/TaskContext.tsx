@@ -34,7 +34,7 @@ export const TaskContextProvider: React.FC = ({ children }) => {
   const [tasks, setTasks] = useState<Array<tasksInterface>>([]);
   const [progress, setProgress] = useState(100);
 
-  async function completeTask(idTask: string): Promise<void> {
+  function completeTask(idTask: string): void {
     if (idTask.length > 1) {
       const dataTemporary = JSON.parse(localStorage.getItem('tasks'));
       const arrayTemporary = dataTemporary.filter((task) => task.id !== idTask);
@@ -50,7 +50,7 @@ export const TaskContextProvider: React.FC = ({ children }) => {
   }
 
   useEffect(() => {
-    async function getTasks(): Promise<void> {
+    function getTasks(): void {
       let data = JSON.parse(localStorage.getItem('tasks'));
       if (data) {
         data.sort(function (a, b): any {
@@ -63,11 +63,12 @@ export const TaskContextProvider: React.FC = ({ children }) => {
         data = JSON.parse(localStorage.getItem('tasks'));
 
         setTasks([]);
+        localStorage.setItem('tasks', JSON.stringify([]));
         setPendingTasks(0);
       } else {
-        // console.log(data);
         setTasks([]);
         setTasks(data);
+        localStorage.setItem('tasks', JSON.stringify(data));
         setPendingTasks(data.length);
       }
     }

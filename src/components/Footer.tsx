@@ -2,7 +2,7 @@ import React from 'react';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import { Container } from '../styles/components/Footer';
 
-const Header: React.FC = () => {
+const Footer: React.FC = () => {
   return (
     <Container>
       <nav>
@@ -37,4 +37,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default Footer;
