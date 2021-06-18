@@ -9,7 +9,9 @@ const Header: React.FC = () => {
         <img src="images/logo.png" alt="PomoTask" />
 
         <div>
-          <p>Made with {'<3'} by Oscar Kemuel</p>
+          <p>
+            Made with <b>{'<3'}</b> by <b>Oscar Kemuel</b>
+          </p>
           <p>
             PomoTask {new Date().getFullYear()}. Todos os direitos reservados.
           </p>
