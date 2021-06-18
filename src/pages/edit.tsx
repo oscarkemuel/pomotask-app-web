@@ -47,7 +47,7 @@ const Edit: React.FC = () => {
     return [year, month, day].join('-');
   }
 
-  const dateFormated = formatDate(new Date(taskObject.date));
+  const dateFormated = formatDate(new Date(taskObject?.date || '2002-04-09'));
 
   function editTask(data: dataInterface): void {
     const dataTemporary = JSON.parse(localStorage.getItem('tasks'));
@@ -69,10 +69,10 @@ const Edit: React.FC = () => {
 
   const formik = useFormik({
     initialValues: {
-      title: taskObject.title || '',
+      title: taskObject?.title || '',
       date: dateFormated || '',
-      points: taskObject.points || 1,
-      description: taskObject.description || ''
+      points: taskObject?.points || 1,
+      description: taskObject?.description || ''
     },
     validationSchema: yup.object({
       title: yup.string().required('Campo necessário'),
@@ -104,7 +104,7 @@ const Edit: React.FC = () => {
       </Head>
 
       <Content>
-        <h2>Editar Tarefa - {taskObject.title} </h2>
+        <h2>Editar Tarefa - {taskObject?.title} </h2>
 
         <Form onSubmit={formik.handleSubmit}>
           <Form.Row>
