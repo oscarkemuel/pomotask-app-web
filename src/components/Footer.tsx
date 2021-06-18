@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
             Made with <b>{'<3'}</b> by <b>Oscar Kemuel</b>
           </p>
           <p>
-            PomoTask {new Date().getFullYear()}. Todos os direitos reservados.
+            © PomoTask {new Date().getFullYear()}. Todos os direitos reservados.
           </p>
         </div>
 
