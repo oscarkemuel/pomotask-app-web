@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import { BsHouseDoor } from 'react-icons/bs';
 import { GiTomato } from 'react-icons/gi';
+import { IoStatsChartSharp } from 'react-icons/io5';
 import { Container, Linked } from '../styles/components/Header';
 
 interface Props {
@@ -31,6 +32,11 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
           <Link href="/pomodoro">
             <Linked className="home link" ItemOn={route === '/pomodoro'}>
               <GiTomato />
+            </Linked>
+          </Link>
+          <Link href="/stats">
+            <Linked className="home link" ItemOn={route === '/stats'}>
+              <IoStatsChartSharp />
             </Linked>
           </Link>
         </div>
