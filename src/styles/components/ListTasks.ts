@@ -15,6 +15,17 @@ export const Container = styled.div`
   .alert {
     width: 100%;
   }
+
+  .buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    button {
+      margin-top: 10px;
+    }
+  }
 `;
 
 export const List = styled.div`

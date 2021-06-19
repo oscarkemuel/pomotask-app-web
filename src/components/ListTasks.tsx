@@ -33,10 +33,16 @@ const ListTasks: React.FC = () => {
           <Alert.Heading>Atenção!</Alert.Heading>
           <p>
             As tarefas são salvas em seu navegador. Portanto, se você trocar de
-            navegador, as tarefas serão perdidas.
+            navegador, as tarefas serão perdidas. Para não perder suas tarefas,
+            clique no botão de <b>Importar/Exportar</b>.
           </p>
         </Alert>
-        <ModalAddUser />
+        <div className="buttons">
+          <ModalAddUser />
+          <Link href="/import-export">
+            <Button variant="info">Importar/Exportar</Button>
+          </Link>
+        </div>
         <List>
           {tasks.length > 0 ? (
             tasks.map((task, id) => {
