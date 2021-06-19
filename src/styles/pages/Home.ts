@@ -21,17 +21,19 @@ export const NumbersContainer = styled.div`
 `;
 
 export const PendingTask = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
   margin: 1rem 0 1rem 0;
-  padding-bottom: 1rem;
   border-bottom: 1px solid #d7d8da;
 
   font-weight: 500;
 
-  span:last-child {
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .number {
     color: var(--red);
     font-size: 1.25rem;
   }

@@ -11,7 +11,7 @@ import { CountdownProvider } from '../context/TaskCountdown';
 import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
-  const { pendingTasks, progress } = useContext(TaskContext);
+  const { progress } = useContext(TaskContext);
 
   const percent = Math.abs(progress - 100);
 
@@ -24,10 +24,6 @@ const Home: React.FC = () => {
       <Container>
         <CountdownProvider>
           <NumbersContainer>
-            <PendingTask>
-              <span>Tarefas pendentes</span>
-              <span>{pendingTasks}</span>
-            </PendingTask>
             <ProgressBar
               now={percent}
               label={`${Math.trunc(percent)}%`}
